@@ -6,7 +6,8 @@ Martin Berkhan max-contest-weight heuristic.
 """
 import math
 
-LB_TO_KG = 0.45359237
+from fitness_core.units import LB_TO_KG
+
 CM_TO_IN = 1 / 2.54
 
 
