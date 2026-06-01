@@ -11,6 +11,7 @@ from fitness_core.common import Sex
 
 
 def siri(density: float) -> float:
+    """Siri (1961) two-compartment equation. density in g/cm^3 -> body-fat %."""
     return 495 / density - 450
 
 
@@ -18,14 +19,21 @@ def navy_bf(sex: Sex, waist_cm: float, neck_cm: float, height_cm: float,
             hip_cm: float | None = None) -> float:
     log10 = math.log10
     if sex == Sex.MALE:
+        if waist_cm <= neck_cm:
+            raise ValueError(
+                f"waist_cm ({waist_cm}) must be greater than neck_cm ({neck_cm})")
         d = (1.0324 - 0.19077 * log10(waist_cm - neck_cm)
              + 0.15456 * log10(height_cm))
     else:
         if hip_cm is None:
             raise ValueError("hip_cm is required for female Navy estimate")
+        if waist_cm + hip_cm <= neck_cm:
+            raise ValueError(
+                f"waist_cm + hip_cm ({waist_cm + hip_cm}) must be greater than "
+                f"neck_cm ({neck_cm})")
         d = (1.29579 - 0.35004 * log10(waist_cm + hip_cm - neck_cm)
              + 0.22100 * log10(height_cm))
-    return 495 / d - 450
+    return siri(d)
 
 
 def jackson_pollock_3(sex: Sex, sum_mm: float, age: float) -> float:
