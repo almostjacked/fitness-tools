@@ -8,6 +8,9 @@ def one_rep_max(method: str, weight: float, reps: float) -> float:
     if method == "epley":
         return weight * (1 + reps / 30)
     if method == "brzycki":
+        # integer-approximation form of Brzycki (1993); undefined as reps -> 37
+        if reps >= 37:
+            raise ValueError("Brzycki formula is undefined for reps >= 37")
         return weight * 36 / (37 - reps)
     if method == "lombardi":
         return weight * reps ** 0.10
@@ -17,7 +20,7 @@ def one_rep_max(method: str, weight: float, reps: float) -> float:
         return weight * (1 + 0.025 * reps)
     if method == "mayhew":
         return 100 * weight / (52.2 + 41.9 * math.exp(-0.055 * reps))
-    raise ValueError(f"unknown 1RM method: {method}")
+    raise ValueError(f"unknown 1RM method: {method!r}; valid: {ORM_METHODS}")
 
 
 def percent_table(one_rm: float, percents=range(50, 105, 5)) -> list[dict]:
