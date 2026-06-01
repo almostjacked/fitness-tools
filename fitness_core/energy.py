@@ -28,4 +28,8 @@ def cunningham_bmr(lbm_kg: float) -> float:
 
 
 def lbm_from_bodyfat(kg: float, body_fat_pct: float) -> float:
+    if kg <= 0:
+        raise ValueError("kg must be positive")
+    if not 0 <= body_fat_pct <= 100:
+        raise ValueError("body_fat_pct must be between 0 and 100")
     return kg * (1 - body_fat_pct / 100)

@@ -22,3 +22,19 @@ def test_cunningham_reference():
 
 def test_lbm_from_bodyfat():
     assert lbm_from_bodyfat(kg=80, body_fat_pct=15) == pytest.approx(68.0)
+
+def test_harris_female_reference():
+    assert harris_bmr(Sex.FEMALE, kg=80, cm=180, age=30) == pytest.approx(1615.093, abs=0.01)
+
+def test_katch_intercept_at_zero_lbm():
+    assert katch_bmr(lbm_kg=0) == pytest.approx(370.0)
+
+def test_lbm_from_bodyfat_boundaries():
+    assert lbm_from_bodyfat(kg=80, body_fat_pct=0) == pytest.approx(80.0)
+    assert lbm_from_bodyfat(kg=80, body_fat_pct=100) == pytest.approx(0.0)
+
+def test_lbm_from_bodyfat_rejects_out_of_range():
+    with pytest.raises(ValueError):
+        lbm_from_bodyfat(kg=80, body_fat_pct=101)
+    with pytest.raises(ValueError):
+        lbm_from_bodyfat(kg=0, body_fat_pct=15)
