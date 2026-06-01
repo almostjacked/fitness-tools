@@ -15,6 +15,9 @@ def test_height_only_runs_ffmi_and_berkhan():
     assert ffmi.value == pytest.approx(90.0)
     assert ffmi.unit == "kg"
     assert ffmi.detail["max_ffm_kg"] == pytest.approx(81.0, abs=0.1)
+    berkhan = next(r for r in out.results if r.method == "berkhan")
+    assert berkhan.value == pytest.approx(84.0)
+    assert out.consensus is not None and out.consensus.n == 2
 
 def test_casey_butt_skipped_without_measurements():
     out = compute(_base())
@@ -25,6 +28,8 @@ def test_casey_butt_runs_with_measurements():
                         ankle={"value": 22, "unit": "cm"}))
     cb = next(r for r in out.results if r.method == "casey-butt")
     assert cb.value == pytest.approx(90.2, abs=0.2)
+    assert cb.detail["max_ffm_kg"] == pytest.approx(81.2, abs=0.1)
+    assert out.consensus.n == 3
 
 def test_female_raises_domain_error():
     with pytest.raises(DomainError):
