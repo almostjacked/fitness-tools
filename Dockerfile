@@ -1,11 +1,18 @@
 FROM python:3.12-slim
 
 WORKDIR /app
-COPY pyproject.toml ./
-RUN pip install --no-cache-dir fastapi "uvicorn[standard]" "pydantic>=2.7"
+
+# Install from pyproject.toml (single source of truth for deps) — no uv needed in the
+# image; hatchling builds the package. Source must be present for the build.
+COPY pyproject.toml README.md LICENSE ./
 COPY fitness_core ./fitness_core
 COPY tools ./tools
 COPY api ./api
+RUN pip install --no-cache-dir .
+
+# Run as a non-root user
+RUN adduser --system --no-create-home appuser
+USER appuser
 
 ENV PORT=8080
 EXPOSE 8080

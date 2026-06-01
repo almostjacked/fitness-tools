@@ -5,3 +5,9 @@ tests/
 docs/
 .git/
 .claude/
+.pytest_cache/
+justfile
+uv.lock
+.env
+*.env
+dist/

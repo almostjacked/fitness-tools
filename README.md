@@ -12,6 +12,11 @@ Composable, self-describing, deterministic fitness calculators over HTTP.
 - `GET /v1/tools/{id}` — one tool
 - `POST /v1/tools/{id}` — run a tool
 
+## Example
+    curl -s -X POST localhost:8000/v1/tools/tdee \
+      -H 'content-type: application/json' \
+      -d '{"sex":"male","age":30,"height":{"value":180,"unit":"cm"},"weight":{"value":80,"unit":"kg"},"activity":"moderate"}'
+
 ## Tools (Phase 1)
 - `tdee` — Mifflin / Harris / Katch / Cunningham
 - `body-fat` — Navy / Jackson-Pollock 3-site / Deurenberg
