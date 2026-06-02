@@ -9,7 +9,7 @@ Composable, deterministic fitness calculators — BMR/TDEE, body fat, 1RM, macro
 multiplier, powerlifting attempts, and natural muscular potential. Each calculator runs
 several published formulas and reports a consensus across them.
 
-This repo ships **two separate, independently-usable artifacts**:
+This repo ships **three separate, independently-usable artifacts**:
 
 - **[`@almostjacked/fitness-tools`](packages/core)** — the npm **library**. Validated,
   self-describing calculators that run natively in the browser and on the server. **This is
@@ -17,6 +17,9 @@ This repo ships **two separate, independently-usable artifacts**:
 - **[`@almostjacked/fitness-tools-api`](apps/api)** — a **reference HTTP server** built on the library.
   It re-exposes the same calculators over HTTP (identical math, identical results) and is
   inert until you run or host it.
+- **[`@almostjacked/fitness-tools-mcp`](apps/mcp)** — an **MCP stdio server** built on the library.
+  It exposes the same calculators as MCP tools for agents/LLM clients (identical math), runnable
+  with `npx @almostjacked/fitness-tools-mcp`.
 
 ## Which one do you want?
 
@@ -42,7 +45,7 @@ apps/mcp        @almostjacked/fitness-tools-mcp  — an MCP stdio server over th
 
 ```bash
 pnpm install
-pnpm -r test                 # core + api test suites
+pnpm -r test                 # core + api + mcp test suites
 pnpm -C packages/core build  # build the library
 pnpm -C apps/api dev         # run the reference server on :8080
 ```
