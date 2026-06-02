@@ -1,44 +1,50 @@
 # Fitness Tools
 
-Composable, self-describing, deterministic fitness calculators. The core math is
-an isomorphic TypeScript package that runs **natively in the browser** and inside
-the HTTP API — one source of truth.
+Composable, deterministic fitness calculators — BMR/TDEE, body fat, 1RM, macros, activity
+multiplier, powerlifting attempts, and natural muscular potential. Each calculator runs
+several published formulas and reports a consensus across them.
 
-## Packages
-- `@fitness-tools/core` — pure calculators + tool registry (browser + server).
-- `@fitness-tools/api` — Hono HTTP server over the core.
+This repo ships **two separate, independently-usable artifacts**:
 
-## Browser-native use
-    import { REGISTRY, mifflinBmr } from "@fitness-tools/core";
-    mifflinBmr("male", 80, 180, 30);            // direct formula
-    const tdee = REGISTRY.get("tdee")!;
-    tdee.compute(tdee.input.parse({ sex: "male", age: 30,
-      height: { value: 180, unit: "cm" }, weight: { value: 80, unit: "kg" },
-      activity: "moderate" }));
+- **[`@fitness-tools/core`](packages/core)** — the npm **library**. Validated,
+  self-describing calculators that run natively in the browser and on the server. **This is
+  the product.**
+- **[`@fitness-tools/api`](apps/api)** — a **reference HTTP server** built on the library.
+  It re-exposes the same calculators over HTTP (identical math, identical results) and is
+  inert until you run or host it.
 
-## API
-- `GET /v1/tools` — catalog (JSON Schemas + examples)
-- `GET /v1/tools/:id` — one tool
-- `POST /v1/tools/:id` — run a tool
+## Which one do you want?
 
-    pnpm install
-    pnpm -C packages/core build
-    pnpm -C apps/api dev      # http://localhost:8080
+| You're… | Use | Why |
+|---|---|---|
+| Writing JS/TS (browser, Node, edge) | **`@fitness-tools/core`** (npm) | Runs in-process. Install, import, call. No server, no network. |
+| Calling from another language / `curl` / a no-code tool | **`@fitness-tools/api`** (HTTP) | Same calculators over HTTP. You run/host it. |
+| Building a remote frontend or an agent/LLM tool | **`@fitness-tools/api`** | Self-describing catalog + OpenAPI over the wire. |
 
-## Tools
-- `tdee` — Mifflin / Harris / Katch / Cunningham
-- `body-fat` — Navy / Jackson-Pollock 3-site / Deurenberg
-- `one-rep-max` — Epley / Brzycki / Lombardi / Wathan / O'Conner / Mayhew
-- `macros` — g-per-kg split
-- `activity-multiplier` — lookup table / NEAT+EAT model
-- `powerlifting-attempts` — attempts + warmup ramp + plate loads
-- `muscle-potential` — Casey-Butt / FFMI-cap / Berkhan
+> The API adds a network boundary, not capability. The package works the moment you install
+> it; the server does nothing until it's running.
 
-## Deploy (GCP Cloud Run, scale-to-zero)
-    docker build -f apps/api/Dockerfile -t fitness-tools-api .
-    gcloud run deploy fitness-tools-api --source . --region us-central1 \
-      --allow-unauthenticated --min-instances 0
+## Layout
+
+```
+packages/core   @fitness-tools/core — the library (the product)
+apps/api        @fitness-tools/api  — a reference HTTP server over the library
+```
+
+## Develop
+
+```bash
+pnpm install
+pnpm -r test                 # core + api test suites
+pnpm -C packages/core build  # build the library
+pnpm -C apps/api dev         # run the reference server on :8080
+```
+
+See each package's README — [library](packages/core/README.md) ·
+[reference server](apps/api/README.md).
 
 ## License
-MIT — see [LICENSE](LICENSE). Built on published formulas (Mifflin-St Jeor, US Navy,
-Jackson-Pollock, Epley, etc.); contributions welcome.
+
+**MIT** — free, open-source, and usable in commercial products. See [LICENSE](LICENSE).
+Built on published formulas (Mifflin-St Jeor, US Navy, Jackson-Pollock, Epley, Casey Butt,
+etc.); contributions welcome.
