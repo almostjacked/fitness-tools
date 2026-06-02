@@ -5,7 +5,7 @@ const doc = buildOpenApiDocument() as any;
 
 describe("buildOpenApiDocument", () => {
   test("is an OpenAPI 3.1 document with info", () => {
-    expect(doc.openapi).toBe("3.1.0");
+    expect(doc.openapi).toBe("3.0.3");
     expect(doc.info.title).toBe("Fitness Tools API");
     expect(typeof doc.info.version).toBe("string");
     expect(doc.info.version.length).toBeGreaterThan(0);

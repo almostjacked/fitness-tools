@@ -17,7 +17,8 @@ function pascalCase(id: string): string {
 
 function schemaFor(tool: Tool, which: "input" | "output"): JsonObject {
   // $refStrategy: "none" inlines shared sub-shapes (Mass/Length) so each
-  // component is self-contained; target openApi3 emits `nullable` and no $schema.
+  // component is self-contained; target openApi3 emits the OpenAPI 3.0 dialect
+  // (`nullable`, no $schema) — see the 3.0.3 version label below.
   return zodToJsonSchema(tool[which], {
     target: "openApi3",
     $refStrategy: "none",
@@ -146,7 +147,10 @@ export function buildOpenApiDocument(): JsonObject {
   };
 
   return {
-    openapi: "3.1.0",
+    // zod-to-json-schema's openApi3 target emits the OpenAPI 3.0 schema dialect
+    // (`nullable`, boolean exclusiveMinimum), so the document is labeled 3.0.3 to
+    // match — strictly valid and universally supported (Scalar, Swagger UI, codegen).
+    openapi: "3.0.3",
     info: {
       title: "Fitness Tools API",
       version: API_VERSION,
