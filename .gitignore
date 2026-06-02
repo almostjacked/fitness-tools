@@ -1,7 +1,5 @@
-__pycache__/
-*.pyc
-.venv/
-.DS_Store
-.env
 node_modules/
 dist/
+*.tsbuildinfo
+.DS_Store
+coverage/
