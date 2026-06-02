@@ -13,7 +13,7 @@
     }
   },
   "files": ["dist"],
-  "sideEffects": false,
+  "sideEffects": ["./dist/index.js"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "vitest run",
