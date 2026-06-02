@@ -24,7 +24,8 @@ This repo ships **two separate, independently-usable artifacts**:
 |---|---|---|
 | Writing JS/TS (browser, Node, edge) | **`@almostjacked/fitness-tools`** (npm) | Runs in-process. Install, import, call. No server, no network. |
 | Calling from another language / `curl` / a no-code tool | **`@almostjacked/fitness-tools-api`** (HTTP) | Same calculators over HTTP. You run/host it. |
-| Building a remote frontend or an agent/LLM tool | **`@almostjacked/fitness-tools-api`** | Self-describing catalog + OpenAPI over the wire. |
+| Building a remote frontend | **`@almostjacked/fitness-tools-api`** | Self-describing catalog + OpenAPI over the wire. |
+| Wiring the calculators into an MCP client / agent | **`@almostjacked/fitness-tools-mcp`** | `npx` an MCP stdio server; one tool per calculator. |
 
 > The API adds a network boundary, not capability. The package works the moment you install
 > it; the server does nothing until it's running.
@@ -34,6 +35,7 @@ This repo ships **two separate, independently-usable artifacts**:
 ```
 packages/core   @almostjacked/fitness-tools — the library (the product)
 apps/api        @almostjacked/fitness-tools-api  — a reference HTTP server over the library
+apps/mcp        @almostjacked/fitness-tools-mcp  — an MCP stdio server over the library
 ```
 
 ## Develop
