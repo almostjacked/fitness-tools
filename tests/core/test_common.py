@@ -11,3 +11,9 @@ def test_activity_multiplier_accepts_float_passthrough():
 def test_sex_and_goal_values():
     assert Sex.MALE.value == "male"
     assert Goal.CUT.value == "cut"
+
+def test_phase2_enums():
+    from fitness_core.common import Intensity, Occupation, Aggressiveness
+    assert Intensity.MODERATE.value == "moderate"
+    assert Occupation.DESK.value == "desk"
+    assert Aggressiveness.STANDARD.value == "standard"

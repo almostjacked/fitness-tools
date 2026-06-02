@@ -34,3 +34,22 @@ def activity_multiplier(activity: "ActivityLevel | float") -> float:
     if isinstance(activity, (int, float)):
         return float(activity)
     return _MULTIPLIERS[activity]
+
+
+class Intensity(str, Enum):
+    LIGHT = "light"
+    MODERATE = "moderate"
+    VIGOROUS = "vigorous"
+
+
+class Occupation(str, Enum):
+    DESK = "desk"
+    STANDING = "standing"
+    MANUAL = "manual"
+    HEAVY = "heavy"
+
+
+class Aggressiveness(str, Enum):
+    CONSERVATIVE = "conservative"
+    STANDARD = "standard"
+    AGGRESSIVE = "aggressive"
