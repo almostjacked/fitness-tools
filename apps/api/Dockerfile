@@ -1,16 +1,10 @@
 # Build core + api from the workspace, then run the api on Cloud Run.
 FROM node:22-slim AS build
 WORKDIR /app
-# corepack resolves pnpm 11 in-image, which enforces supply-chain guardrails that
-# are absent on the host: a minimumReleaseAge gate that rejects freshly published
-# deps (our committed lockfile is already vetted), a strict ignored-builds error
-# for esbuild (a dev-only dep, pruned by `deploy --prod`), and an auto re-install
-# verify before `pnpm run` that would re-trigger the age gate. These env vars
-# relax those policies for every pnpm invocation in this stage; the architecture
-# (frozen install -> build -> deploy --prod) is unchanged.
-ENV PNPM_CONFIG_MINIMUM_RELEASE_AGE=0
-ENV PNPM_CONFIG_STRICT_DEP_BUILDS=false
-ENV PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN=false
+# corepack reads the root package.json "packageManager" field and activates the
+# pinned pnpm (10.33.0) on first invocation, matching the host. This avoids the
+# pnpm-11 supply-chain guardrails (minimumReleaseAge, strict ignored-builds,
+# verify-deps-before-run) that previously required env-var workarounds.
 RUN corepack enable
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY packages/core/package.json packages/core/package.json
