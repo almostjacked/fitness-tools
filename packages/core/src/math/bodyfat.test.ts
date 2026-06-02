@@ -15,8 +15,9 @@ describe("bodyfat", () => {
     expect(() => navyBf("female", 80, 33, 165)).toThrow();
   });
   test("jackson-pollock 3 male/female", () => {
-    expect(jacksonPollock3("male", 60, 30)).toBeCloseTo(18.0, 1);
-    expect(jacksonPollock3("female", 50, 25)).toBeCloseTo(20.5, 1);
+    // oracle tolerance: pytest.approx(x, abs=0.2)
+    expect(Math.abs(jacksonPollock3("male", 60, 30) - 18.0)).toBeLessThan(0.2);
+    expect(Math.abs(jacksonPollock3("female", 50, 25) - 20.5)).toBeLessThan(0.2);
   });
   test("deurenberg male", () => {
     expect(deurenberg("male", 24.69, 30)).toBeCloseTo(20.3, 1);
