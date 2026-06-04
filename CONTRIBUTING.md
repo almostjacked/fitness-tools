@@ -56,6 +56,8 @@ apps/docs       the documentation site
    catalog, the OpenAPI spec, and `/docs` — no extra wiring.
 4. Regenerate the README tools table: `pnpm -C packages/core gen:tools`. **Don't hand-edit
    the table between the `<!-- tools:start/end -->` markers** — a test fails if it drifts.
+5. Add a docs page at `apps/docs/src/content/docs/tools/<id>.md` (copy the shape of a
+   sibling page). A test fails if a registered tool has no page.
 
 ## Pull requests
 

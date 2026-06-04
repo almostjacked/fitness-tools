@@ -51,6 +51,7 @@ apps/mcp        @almostjacked/fitness-tools-mcp  — an MCP stdio server over th
 ## Develop
 
 ```bash
+corepack enable              # pnpm version is pinned in package.json
 pnpm install
 pnpm -r test                 # core + api + mcp test suites
 pnpm -C packages/core build  # build the library

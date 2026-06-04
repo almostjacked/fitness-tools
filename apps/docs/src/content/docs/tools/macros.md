@@ -55,6 +55,9 @@ macros.compute(macros.input.parse({
 }
 ```
 
+> `macros` runs a single method, so there's nothing to average — `consensus` is `null`.
+> Multi-method tools (like [`tdee`](/fitness-tools/tools/tdee/)) return a populated consensus.
+
 ## Call it another way
 
 - **Over HTTP:** `POST /v1/tools/macros` — see the [HTTP API](/fitness-tools/api/).
