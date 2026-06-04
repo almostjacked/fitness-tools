@@ -3,11 +3,11 @@ import { REGISTRY, tools } from "./index.js";
 
 const EXPECTED = [
   "tdee", "body-fat", "one-rep-max", "macros",
-  "activity-multiplier", "powerlifting-attempts", "muscle-potential",
+  "activity-multiplier", "powerlifting-attempts", "muscle-potential", "ffmi", "rsmi",
 ];
 
 describe("core public API", () => {
-  test("all seven tools registered", () => {
+  test("all nine tools registered", () => {
     for (const id of EXPECTED) expect(REGISTRY.has(id)).toBe(true);
     expect(REGISTRY.size).toBe(EXPECTED.length);
   });
