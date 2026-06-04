@@ -14,10 +14,11 @@ import { tool as macros } from "./tools/macros.js";
 import { tool as activityMultiplier } from "./tools/activity-multiplier.js";
 import { tool as powerliftingAttempts } from "./tools/powerlifting-attempts.js";
 import { tool as musclePotential } from "./tools/muscle-potential.js";
+import { tool as ffmi } from "./tools/ffmi.js";
 
 export const tools: Tool[] = [
   tdee, bodyFat, oneRepMax, macros,
-  activityMultiplier, powerliftingAttempts, musclePotential,
+  activityMultiplier, powerliftingAttempts, musclePotential, ffmi,
 ];
 
 for (const t of tools) register(t);
