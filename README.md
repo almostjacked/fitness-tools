@@ -33,6 +33,13 @@ This repo ships **three separate, independently-usable artifacts**:
 > The API adds a network boundary, not capability. The package works the moment you install
 > it; the server does nothing until it's running.
 
+### Documentation
+
+- **New to it?** [Getting started](https://ajwallacemusic.github.io/fitness-tools/guides/getting-started/)
+- **What each calculator does:** [Tools](https://ajwallacemusic.github.io/fitness-tools/tools/tdee/)
+- **Calling from an agent:** [Consumer guide](https://ajwallacemusic.github.io/fitness-tools/guides/agents/)
+- **Working on this repo:** [AGENTS.md](AGENTS.md)
+
 ## Layout
 
 ```
@@ -44,6 +51,7 @@ apps/mcp        @almostjacked/fitness-tools-mcp  — an MCP stdio server over th
 ## Develop
 
 ```bash
+corepack enable              # pnpm version is pinned in package.json
 pnpm install
 pnpm -r test                 # core + api + mcp test suites
 pnpm -C packages/core build  # build the library

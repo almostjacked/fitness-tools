@@ -38,9 +38,14 @@ claude mcp add fitness-tools -- npx -y @almostjacked/fitness-tools-mcp
 
 ## Tools
 
+> Per-tool inputs, methods, and citations live on the [tool pages](https://ajwallacemusic.github.io/fitness-tools/tools/tdee/) — identical across library, HTTP, and MCP.
+
 Each tool returns both `structuredContent` (validated against the calculator's
 output schema) and a JSON text fallback. Invalid input and domain errors come
 back as tool errors (`isError: true`), not crashes.
+
+For agent-facing usage — picking a tool, reading `consensus`/`skipped`, error handling, and
+a chained workflow — see the [consumer guide](https://ajwallacemusic.github.io/fitness-tools/guides/agents/).
 
 ## Develop
 
