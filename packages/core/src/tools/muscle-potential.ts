@@ -9,7 +9,7 @@ import { DomainError } from "../errors.js";
 import {
   MethodResultSchema, SkippedMethodSchema, ConsensusSchema,
 } from "../models.js";
-import { runMethods, type MethodOutput } from "../dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods, type MethodOutput } from "../dispatch.js";
 import type { Tool } from "../registry.js";
 
 const ALL_METHODS = ["casey-butt", "ffmi-cap", "berkhan"];
@@ -25,7 +25,7 @@ export const MusclePotentialInput = z.object({
   wrist: LengthSchema.nullable().default(null),
   ankle: LengthSchema.nullable().default(null),
   target_body_fat_pct: z.number().gte(3).lte(40).default(10),
-  methods: z.union([z.array(z.string()), z.literal("all")]).default("all"),
+  methods: MethodsSchema,
 });
 export type MusclePotentialInputT = z.output<typeof MusclePotentialInput>;
 
@@ -57,8 +57,7 @@ export function compute(inp: MusclePotentialInputT): MusclePotentialOutputT {
     return [weightAtBf(ffm, bf), { max_ffm_kg: roundTo(ffm, 1), target_bf_pct: bf }];
   };
 
-  const requested = inp.methods === "all" ? ALL_METHODS : inp.methods;
-  const explicit = inp.methods !== "all";
+  const { requested, explicit } = resolveMethods(inp.methods, ALL_METHODS);
   const { results, skipped } = runMethods(requested, explicit, run, "kg", {
     reasonFn: (m) => REASONS[m] ?? `${m}: required inputs missing`,
     ndigits: 1,

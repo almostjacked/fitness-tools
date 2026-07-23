@@ -9,7 +9,7 @@ import { DomainError } from "../errors.js";
 import {
   MethodResultSchema, SkippedMethodSchema, ConsensusSchema,
 } from "../models.js";
-import { runMethods, type MethodOutput } from "../dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods, type MethodOutput } from "../dispatch.js";
 import type { Tool } from "../registry.js";
 
 const ALL_METHODS = ["mifflin", "harris", "katch", "cunningham"];
@@ -22,7 +22,7 @@ export const TdeeInput = z.object({
   activity: z.union([ActivityLevel, z.number()]),
   body_fat: z.number().gte(2).lte(70).nullable().default(null),
   lean_mass: MassSchema.nullable().default(null),
-  methods: z.union([z.array(z.string()), z.literal("all")]).default("all"),
+  methods: MethodsSchema,
 });
 export type TdeeInputT = z.output<typeof TdeeInput>;
 
@@ -59,8 +59,7 @@ export function compute(inp: TdeeInputT): TdeeOutputT {
     return [bmr * mult, { bmr: roundTo(bmr, 1), multiplier: mult }];
   };
 
-  const requested = inp.methods === "all" ? ALL_METHODS : inp.methods;
-  const explicit = inp.methods !== "all";
+  const { requested, explicit } = resolveMethods(inp.methods, ALL_METHODS);
   const { results, skipped } = runMethods(requested, explicit, run, "kcal/day", {
     reasonFn: (m) => `${m}: requires body_fat or lean_mass`,
   });

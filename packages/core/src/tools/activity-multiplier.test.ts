@@ -47,3 +47,16 @@ describe("activity-multiplier tool", () => {
     expect(out.consensus!.mean).toBeCloseTo(1.431, 3);
   });
 });
+
+describe("bare-string methods (regression: failed Claude Desktop call)", () => {
+  test('methods: "lookup" parses and computes like methods: ["lookup"]', () => {
+    const out = compute(ActivityMultiplierInput.parse({ methods: "lookup", activity_level: "moderate" }));
+    expect(out.results.map((r) => r.method)).toEqual(["lookup"]);
+    expect(out.results[0].value).toBeCloseTo(1.55, 5);
+  });
+  test('methods: "neat-eat" without its inputs raises like an explicit array would', () => {
+    expect(() =>
+      compute(ActivityMultiplierInput.parse({ methods: "neat-eat", activity_level: "moderate" })),
+    ).toThrow(DomainError);
+  });
+});
