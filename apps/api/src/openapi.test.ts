@@ -31,11 +31,11 @@ describe("buildOpenApiDocument", () => {
     expect(doc.paths["/v1/tools/muscle-potential"].post.operationId).toBe("runMusclePotential");
   });
 
-  test("all 9 tool paths present", () => {
+  test("all 10 tool paths present", () => {
     for (const id of [
       "tdee", "body-fat", "one-rep-max", "macros",
       "activity-multiplier", "powerlifting-attempts", "muscle-potential",
-      "ffmi", "rsmi",
+      "ffmi", "rsmi", "adaptive-tdee",
     ]) {
       expect(doc.paths[`/v1/tools/${id}`].post).toBeDefined();
     }
@@ -49,14 +49,14 @@ describe("buildOpenApiDocument", () => {
     expect(doc.paths["/healthz"].get.operationId).toBe("healthz");
   });
 
-  test("components: 18 tool schemas (object) + ErrorEnvelope + 3 responses", () => {
+  test("components: 20 tool schemas (object) + ErrorEnvelope + 3 responses", () => {
     const s = doc.components.schemas;
     expect(s.TdeeInput.type).toBe("object");
     expect(s.TdeeOutput.type).toBe("object");
     expect(s.MusclePotentialOutput.type).toBe("object");
     expect(s.ErrorEnvelope.type).toBe("object");
-    // 9 tools × (Input+Output) = 18, plus ErrorEnvelope = 19
-    expect(Object.keys(s).length).toBe(19);
+    // 10 tools × (Input+Output) = 20, plus ErrorEnvelope = 21
+    expect(Object.keys(s).length).toBe(21);
     for (const r of ["ValidationError", "DomainError", "NotFound"]) {
       expect(doc.components.responses[r].content["application/json"].schema.$ref)
         .toBe("#/components/schemas/ErrorEnvelope");

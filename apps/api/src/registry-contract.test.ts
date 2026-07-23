@@ -7,7 +7,7 @@ const ids = [...REGISTRY.keys()];
 
 describe("registry contract", () => {
   test("registry not empty", () => {
-    expect(ids.length).toBe(9);
+    expect(ids.length).toBe(10);
   });
   test.each(ids)("%s is in the catalog with object schemas", async (id) => {
     const catalog = (await (await app.request("/v1/tools")).json()) as any[];

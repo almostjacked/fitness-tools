@@ -1,0 +1,95 @@
+---
+title: Adaptive TDEE
+description: Measure actual TDEE from logged daily weight and calorie intake via energy balance.
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+**Tool id:** `adaptive-tdee` · **Methods:** regression, endpoints
+
+Formula TDEE (the `tdee` tool) estimates; this tool **measures**. Given 2+ weeks of daily
+weight and intake logs it computes the TDEE that actually explains your weight change,
+using the energy-balance identity `TDEE = mean intake − stored energy`
+(Wishnofsky: 7700 kcal per kg of body-mass change).
+
+## Input
+
+| Field | Type | Notes |
+|---|---|---|
+| `entries` | array (10–400) | one per day: `{ date, weight, kcal }` |
+| `entries[].date` | string | `YYYY-MM-DD`; gaps are fine, duplicates are an error |
+| `entries[].weight` | `{ value, unit }` | `kg` or `lb` |
+| `entries[].kcal` | number | calories logged for that date |
+| `window_days` | integer | 3–14, default 7 — smoothing window for `endpoints` |
+| `methods` | `string[] \| "all"` | defaults to `"all"` |
+
+## Methods
+
+- **regression** — OLS slope of weight over the whole series; robust to gaps.
+- **endpoints** — compares the mean of the first and last `window_days` of weights;
+  requires a date span of at least `2 × window_days`, otherwise it is skipped.
+
+> Data sources: on the Claude iOS app, the native Apple Health integration supplies
+> weight and dietary energy directly; elsewhere, paste an export from your logging app.
+
+## Example
+
+<Tabs>
+  <TabItem label="TypeScript">
+
+```ts
+import { REGISTRY } from "@almostjacked/fitness-tools";
+const at = REGISTRY.get("adaptive-tdee")!;
+at.compute(at.input.parse({
+  entries: [
+    { date: "2026-01-01", weight: { value: 80, unit: "kg" }, kcal: 2500 },
+    // ... one entry per day, 10+ total
+  ],
+}));
+```
+
+  </TabItem>
+  <TabItem label="curl">
+
+```bash
+curl -s localhost:8080/v1/tools/adaptive-tdee \
+  -X POST -H 'content-type: application/json' \
+  -d '{
+    "entries": [
+      {"date":"2026-01-01","weight":{"value":80,"unit":"kg"},"kcal":2500},
+      {"date":"2026-01-02","weight":{"value":79.95,"unit":"kg"},"kcal":2500}
+    ]
+  }'
+```
+
+  </TabItem>
+  <TabItem label="MCP">
+
+Call the `adaptive-tdee` tool with these arguments:
+
+```json
+{
+  "entries": [
+    {"date":"2026-01-01","weight":{"value":80,"unit":"kg"},"kcal":2500},
+    {"date":"2026-01-02","weight":{"value":79.95,"unit":"kg"},"kcal":2500}
+  ]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+```ts
+{
+  results: [
+    { method: "regression", value: 2329, unit: "kcal/day", detail: { mean_intake_kcal: 2500, weight_change_kg_per_week: -0.525, span_days: 14, n_entries: 14, kcal_per_kg: 7700 } },
+    { method: "endpoints", value: 2350, unit: "kcal/day", detail: { mean_intake_kcal: 2500, weight_change_kg_per_week: -0.5, span_days: 14, n_entries: 14, kcal_per_kg: 7700 } },
+  ],
+  consensus: { mean: 2339.5, median: 2339.5, min: 2329, max: 2350, n: 2 },
+  skipped: [],
+}
+```
+
+## Call it another way
+
+Full docs for the other protocols: [HTTP API](/fitness-tools/api/) · [MCP server](/fitness-tools/mcp/server/).
