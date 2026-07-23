@@ -79,14 +79,42 @@ Call the `adaptive-tdee` tool with these arguments:
   </TabItem>
 </Tabs>
 
-```ts
+```json
 {
-  results: [
-    { method: "regression", value: 2329, unit: "kcal/day", detail: { mean_intake_kcal: 2500, weight_change_kg_per_week: -0.525, span_days: 14, n_entries: 14, kcal_per_kg: 7700 } },
-    { method: "endpoints", value: 2350, unit: "kcal/day", detail: { mean_intake_kcal: 2500, weight_change_kg_per_week: -0.5, span_days: 14, n_entries: 14, kcal_per_kg: 7700 } },
+  "results": [
+    {
+      "method": "regression",
+      "value": 2885,
+      "unit": "kcal/day",
+      "detail": {
+        "mean_intake_kcal": 2500,
+        "weight_change_kg_per_week": -0.35,
+        "span_days": 14,
+        "n_entries": 14,
+        "kcal_per_kg": 7700
+      }
+    },
+    {
+      "method": "endpoints",
+      "value": 2885,
+      "unit": "kcal/day",
+      "detail": {
+        "mean_intake_kcal": 2500,
+        "weight_change_kg_per_week": -0.35,
+        "span_days": 14,
+        "n_entries": 14,
+        "kcal_per_kg": 7700
+      }
+    }
   ],
-  consensus: { mean: 2339.5, median: 2339.5, min: 2329, max: 2350, n: 2 },
-  skipped: [],
+  "consensus": {
+    "mean": 2885,
+    "median": 2885,
+    "min": 2885,
+    "max": 2885,
+    "n": 2
+  },
+  "skipped": []
 }
 ```
 
