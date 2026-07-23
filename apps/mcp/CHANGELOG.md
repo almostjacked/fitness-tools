@@ -1,5 +1,11 @@
 # @almostjacked/fitness-tools-mcp
 
+## 0.3.2
+
+### Patch Changes
+
+- 34696cf: Directory-readiness: read-only safety annotations on every tool (readOnlyHint/idempotentHint true, destructiveHint/openWorldHint false) and privacy policy (docs page, README section, mcpb manifest privacy_policies).
+
 ## 0.3.1
 
 ### Patch Changes
