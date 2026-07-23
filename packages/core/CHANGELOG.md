@@ -1,5 +1,11 @@
 # @almostjacked/fitness-tools
 
+## 0.3.0
+
+### Minor Changes
+
+- 6e58eb2: Add adaptive-tdee calculator: measured TDEE from logged daily weight and calorie intake (energy balance, regression + endpoints methods with consensus).
+
 ## 0.2.1
 
 ### Patch Changes
