@@ -5,7 +5,7 @@ import { ffmi as ffmiOf, adjustedFfmi, FFMI_NATURAL_CAP } from "../math/indices.
 import { roundTo } from "../math/stats.js";
 import { DomainError } from "../errors.js";
 import { MethodResultSchema, ConsensusSchema } from "../models.js";
-import { runMethods, type MethodOutput } from "../dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods, type MethodOutput } from "../dispatch.js";
 import type { Tool } from "../registry.js";
 
 const ALL_METHODS = ["standard"];
@@ -15,7 +15,7 @@ export const FfmiInput = z.object({
   weight: MassSchema,
   body_fat: z.number().gte(2).lte(70).nullable().default(null),
   lean_mass: MassSchema.nullable().default(null),
-  methods: z.union([z.array(z.string()), z.literal("all")]).default("all"),
+  methods: MethodsSchema,
 });
 export type FfmiInputT = z.output<typeof FfmiInput>;
 
@@ -48,8 +48,7 @@ export function compute(inp: FfmiInputT): FfmiOutputT {
     ];
   };
 
-  const requested = inp.methods === "all" ? ALL_METHODS : inp.methods;
-  const explicit = inp.methods !== "all";
+  const { requested, explicit } = resolveMethods(inp.methods, ALL_METHODS);
   const { results } = runMethods(requested, explicit, run, "kg/m²", { ndigits: 2 });
   return { results, consensus: null };
 }

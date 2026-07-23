@@ -4,7 +4,7 @@ import { MassSchema, massKg } from "../math/units.js";
 import { macrosGPerKg } from "../math/macros.js";
 import { DomainError } from "../errors.js";
 import { MethodResultSchema, ConsensusSchema } from "../models.js";
-import { runMethods, type MethodOutput } from "../dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods, type MethodOutput } from "../dispatch.js";
 import type { Tool } from "../registry.js";
 
 const ALL_METHODS = ["g-per-kg"];
@@ -16,7 +16,7 @@ export const MacrosInput = z.object({
   goal: Goal.default("maintain"),
   protein_g_per_kg: z.number().gt(0).lte(4).nullable().default(null),
   fat_g_per_kg: z.number().gt(0).lte(3).nullable().default(null),
-  methods: z.union([z.array(z.string()), z.literal("all")]).default("all"),
+  methods: MethodsSchema,
 });
 export type MacrosInputT = z.output<typeof MacrosInput>;
 
@@ -34,8 +34,7 @@ export function compute(inp: MacrosInputT): MacrosOutputT {
     const split = macrosGPerKg(inp.calories, massKg(inp.weight), protein, fat);
     return [split.calories, split as unknown as Record<string, unknown>];
   };
-  const requested = inp.methods === "all" ? ALL_METHODS : inp.methods;
-  const explicit = inp.methods !== "all";
+  const { requested, explicit } = resolveMethods(inp.methods, ALL_METHODS);
   const { results } = runMethods(requested, explicit, run, "kcal", { ndigits: 0 });
   return { results, consensus: null };
 }

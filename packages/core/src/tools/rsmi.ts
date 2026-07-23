@@ -9,7 +9,7 @@ import { DomainError } from "../errors.js";
 import {
   MethodResultSchema, SkippedMethodSchema, ConsensusSchema,
 } from "../models.js";
-import { runMethods, type MethodOutput } from "../dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods, type MethodOutput } from "../dispatch.js";
 import type { Tool } from "../registry.js";
 
 const ALL_METHODS = ["direct", "wen-2011"];
@@ -20,7 +20,7 @@ export const RsmiInput = z.object({
   weight: MassSchema,
   age: z.number().gt(0).lte(120),
   asm_kg: z.number().positive().nullable().default(null),
-  methods: z.union([z.array(z.string()), z.literal("all")]).default("all"),
+  methods: MethodsSchema,
 });
 export type RsmiInputT = z.output<typeof RsmiInput>;
 
@@ -55,8 +55,7 @@ export function compute(inp: RsmiInputT): RsmiOutputT {
     return [value, { asm_kg: roundTo(asm, 2), ...flags(inp.sex, value) }];
   };
 
-  const requested = inp.methods === "all" ? ALL_METHODS : inp.methods;
-  const explicit = inp.methods !== "all";
+  const { requested, explicit } = resolveMethods(inp.methods, ALL_METHODS);
   const { results, skipped } = runMethods(requested, explicit, run, "kg/m²", {
     reasonFn: () => "direct: requires asm_kg",
     ndigits: 2,

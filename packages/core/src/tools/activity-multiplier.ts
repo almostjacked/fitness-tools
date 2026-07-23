@@ -11,7 +11,7 @@ import { DomainError } from "../errors.js";
 import {
   MethodResultSchema, SkippedMethodSchema, ConsensusSchema,
 } from "../models.js";
-import { runMethods, type MethodOutput } from "../dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods, type MethodOutput } from "../dispatch.js";
 import type { Tool } from "../registry.js";
 
 const ALL_METHODS = ["lookup", "neat-eat"];
@@ -31,7 +31,7 @@ export const ActivityMultiplierInput = z.object({
   intensity: Intensity.nullable().default(null),
   steps_per_day: z.number().int().gte(0).lte(100000).nullable().default(null),
   occupation: Occupation.nullable().default(null),
-  methods: z.union([z.array(z.string()), z.literal("all")]).default("all"),
+  methods: MethodsSchema,
 });
 export type ActivityMultiplierInputT = z.output<typeof ActivityMultiplierInput>;
 
@@ -82,8 +82,7 @@ export function compute(inp: ActivityMultiplierInputT): ActivityMultiplierOutput
     if (method === "neat-eat") return neatEat(inp);
     throw new DomainError(`unknown method: ${method}`);
   };
-  const requested = inp.methods === "all" ? ALL_METHODS : inp.methods;
-  const explicit = inp.methods !== "all";
+  const { requested, explicit } = resolveMethods(inp.methods, ALL_METHODS);
   const { results, skipped } = runMethods(requested, explicit, run, "x", {
     reasonFn: (m) => REASONS[m] ?? `${m}: required inputs missing`,
     ndigits: 3,

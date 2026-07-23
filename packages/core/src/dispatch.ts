@@ -1,6 +1,23 @@
+import { z } from "zod";
 import { DomainError } from "./errors.js";
 import type { MethodResult, SkippedMethod } from "./models.js";
 import { roundTo } from "./math/stats.js";
+
+/** Accepted shapes for a tool's `methods` input: "all" (default), a single
+ * method name, or a list of names. LLM callers routinely send a bare name
+ * ("epley", "neat-eat"); the earlier array-or-"all" union rejected that shape
+ * and caused real failed tool calls in MCP clients. */
+export const MethodsSchema = z.union([z.array(z.string()), z.string()]).default("all");
+export type MethodsInput = z.output<typeof MethodsSchema>;
+
+export function resolveMethods(
+  methods: MethodsInput,
+  allMethods: readonly string[],
+): { requested: string[]; explicit: boolean } {
+  if (methods === "all") return { requested: [...allMethods], explicit: false };
+  if (typeof methods === "string") return { requested: [methods], explicit: true };
+  return { requested: methods, explicit: true };
+}
 
 export type MethodOutput = [number, Record<string, unknown> | null] | null;
 export type ComputeFn = (method: string) => MethodOutput;

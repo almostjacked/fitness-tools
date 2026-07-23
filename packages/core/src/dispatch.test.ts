@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { runMethods } from "./dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods } from "./dispatch.js";
 import { DomainError } from "./errors.js";
 
 describe("runMethods", () => {
@@ -31,5 +31,23 @@ describe("runMethods", () => {
       reasonFn: (m) => `${m}: nope`,
     });
     expect(skipped[0].reason).toBe("x: nope");
+  });
+});
+
+describe("MethodsSchema + resolveMethods", () => {
+  test("accepts a bare method-name string (real failed-call shape from LLM clients)", () => {
+    expect(MethodsSchema.parse("epley")).toBe("epley");
+    expect(resolveMethods("epley", ["epley", "brzycki"])).toEqual({
+      requested: ["epley"],
+      explicit: true,
+    });
+  });
+  test("'all' expands to every method, non-explicit", () => {
+    expect(resolveMethods("all", ["a", "b"])).toEqual({ requested: ["a", "b"], explicit: false });
+    expect(MethodsSchema.parse(undefined)).toBe("all"); // default preserved
+  });
+  test("arrays pass through, explicit", () => {
+    expect(resolveMethods(["b"], ["a", "b"])).toEqual({ requested: ["b"], explicit: true });
+    expect(MethodsSchema.parse(["a", "b"])).toEqual(["a", "b"]);
   });
 });

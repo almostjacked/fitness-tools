@@ -7,7 +7,7 @@ import { DomainError } from "../errors.js";
 import {
   MethodResultSchema, SkippedMethodSchema, ConsensusSchema,
 } from "../models.js";
-import { runMethods, type MethodOutput } from "../dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods, type MethodOutput } from "../dispatch.js";
 import type { Tool } from "../registry.js";
 
 const ALL_METHODS = ["navy", "jackson-pollock-3", "deurenberg"];
@@ -26,7 +26,7 @@ export const BodyFatInput = z.object({
   waist: LengthSchema.nullable().default(null),
   hip: LengthSchema.nullable().default(null),
   skinfold_sum: z.number().gt(0).nullable().default(null),
-  methods: z.union([z.array(z.string()), z.literal("all")]).default("all"),
+  methods: MethodsSchema,
 });
 export type BodyFatInputT = z.output<typeof BodyFatInput>;
 
@@ -83,8 +83,7 @@ export function compute(inp: BodyFatInputT): BodyFatOutputT {
     if (bf === null) return null;
     return [bf, detail(inp, bf)];
   };
-  const requested = inp.methods === "all" ? ALL_METHODS : inp.methods;
-  const explicit = inp.methods !== "all";
+  const { requested, explicit } = resolveMethods(inp.methods, ALL_METHODS);
   const { results, skipped } = runMethods(requested, explicit, run, "%", {
     reasonFn: (m) => REASONS[m] ?? `${m}: required inputs missing`,
     ndigits: 2,

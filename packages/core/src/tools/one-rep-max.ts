@@ -4,7 +4,7 @@ import { oneRepMax, percentTable, ORM_METHODS, type PercentRow } from "../math/s
 import { computeConsensus } from "../math/stats.js";
 import { DomainError } from "../errors.js";
 import { MethodResultSchema, ConsensusSchema } from "../models.js";
-import { runMethods, type MethodOutput } from "../dispatch.js";
+import { MethodsSchema, resolveMethods, runMethods, type MethodOutput } from "../dispatch.js";
 import type { Tool } from "../registry.js";
 
 const METHODS = [...ORM_METHODS];
@@ -12,7 +12,7 @@ const METHODS = [...ORM_METHODS];
 export const OneRepMaxInput = z.object({
   weight: MassSchema,
   reps: z.number().int().gt(0).lte(20),
-  methods: z.union([z.array(z.string()), z.literal("all")]).default("all"),
+  methods: MethodsSchema,
 });
 export type OneRepMaxInputT = z.output<typeof OneRepMaxInput>;
 
@@ -33,8 +33,7 @@ export function compute(inp: OneRepMaxInputT): OneRepMaxOutputT {
     return [oneRepMax(method, w, inp.reps), null];
   };
 
-  const requested = inp.methods === "all" ? METHODS : inp.methods;
-  const explicit = inp.methods !== "all";
+  const { requested, explicit } = resolveMethods(inp.methods, METHODS);
   const { results } = runMethods(requested, explicit, run, unit, { ndigits: 1 });
   const consensus = computeConsensus(results.map((r) => r.value));
   const percent_table: PercentRow[] = consensus ? percentTable(consensus.mean) : [];
