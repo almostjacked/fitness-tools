@@ -8,6 +8,7 @@
  */
 import { register, REGISTRY, type Tool } from "./registry.js";
 import { tool as tdee } from "./tools/tdee.js";
+import { tool as adaptiveTdee } from "./tools/adaptive-tdee.js";
 import { tool as bodyFat } from "./tools/body-fat.js";
 import { tool as oneRepMax } from "./tools/one-rep-max.js";
 import { tool as macros } from "./tools/macros.js";
@@ -18,7 +19,7 @@ import { tool as ffmi } from "./tools/ffmi.js";
 import { tool as rsmi } from "./tools/rsmi.js";
 
 export const tools: Tool[] = [
-  tdee, bodyFat, oneRepMax, macros,
+  tdee, adaptiveTdee, bodyFat, oneRepMax, macros,
   activityMultiplier, powerliftingAttempts, musclePotential, ffmi, rsmi,
 ];
 
@@ -41,3 +42,4 @@ export * from "./math/activity.js";
 export * from "./math/potential.js";
 export * from "./math/indices.js";
 export * from "./math/plates.js";
+export * from "./math/adaptive.js";

@@ -1,6 +1,6 @@
 # @almostjacked/fitness-tools
 
-**New here?** Start with the [getting-started tutorial](https://ajwallacemusic.github.io/fitness-tools/start-here/getting-started/)
+**New here?** Start with the [getting-started tutorial](https://almostjacked.github.io/fitness-tools/start-here/getting-started/)
 — zero to an understood result in one page. The reference below is the fast version.
 
 Validated, self-describing fitness calculators for TypeScript — **runs natively in the
@@ -9,7 +9,7 @@ powerlifting attempts, and natural muscular potential, each with multiple method
 consensus across them.
 
 [![npm](https://img.shields.io/npm/v/@almostjacked/fitness-tools.svg)](https://www.npmjs.com/package/@almostjacked/fitness-tools)
-[![CI](https://github.com/ajwallacemusic/fitness-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/ajwallacemusic/fitness-tools/actions/workflows/ci.yml)
+[![CI](https://github.com/almostjacked/fitness-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/almostjacked/fitness-tools/actions/workflows/ci.yml)
 · Types ✓ · 1 dependency (zod) · MIT
 
 ```bash
@@ -74,6 +74,7 @@ an edge function, or Node.
 | Tool | Methods | Description |
 |---|---|---|
 | `tdee` | mifflin, harris, katch, cunningham | Estimate BMR and TDEE via Mifflin-St Jeor, Harris-Benedict, Katch-McArdle, and Cunningham. Provide body_fat or lean_mass to unlock the LBM-based methods. |
+| `adaptive-tdee` | regression, endpoints | Measure actual TDEE from a logged history of daily weight and calorie intake (energy balance: mean intake minus stored energy, Wishnofsky 7700 kcal/kg). Use instead of formula TDEE once ~2+ weeks of real data exist. |
 | `body-fat` | navy, jackson-pollock-3, deurenberg | Estimate body-fat % via US Navy circumference, Jackson-Pollock 3-site skinfold, and Deurenberg (BMI-based) methods. |
 | `one-rep-max` | epley, brzycki, lombardi, wathan, oconner, mayhew | Estimate 1RM from a submaximal set via Epley, Brzycki, Lombardi, Wathan, O'Conner, and Mayhew; returns a %1RM load chart. |
 | `macros` | g-per-kg | Compute protein/fat/carb grams for a calorie target using the g-per-kg-bodyweight method, with goal-based protein defaults. |

@@ -12,7 +12,7 @@ codebase and contributions are welcome.
 ## Setup
 
 ```bash
-git clone https://github.com/ajwallacemusic/fitness-tools.git
+git clone https://github.com/almostjacked/fitness-tools.git
 cd fitness-tools
 pnpm install
 pnpm -C packages/core build   # the API imports the core's built dist/
