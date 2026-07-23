@@ -1,5 +1,16 @@
 # @almostjacked/fitness-tools-mcp
 
+## 0.3.0
+
+### Minor Changes
+
+- 6e58eb2: Add stateless remote MCP endpoint (Cloudflare Workers, streamable HTTP) and a .mcpb one-click bundle for Claude Desktop.
+
+### Patch Changes
+
+- Updated dependencies [6e58eb2]
+  - @almostjacked/fitness-tools@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes
