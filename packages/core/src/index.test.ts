@@ -2,12 +2,12 @@ import { describe, expect, test } from "vitest";
 import { REGISTRY, tools } from "./index.js";
 
 const EXPECTED = [
-  "tdee", "body-fat", "one-rep-max", "macros",
+  "tdee", "adaptive-tdee", "body-fat", "one-rep-max", "macros",
   "activity-multiplier", "powerlifting-attempts", "muscle-potential", "ffmi", "rsmi",
 ];
 
 describe("core public API", () => {
-  test("all nine tools registered", () => {
+  test("all ten tools registered", () => {
     for (const id of EXPECTED) expect(REGISTRY.has(id)).toBe(true);
     expect(REGISTRY.size).toBe(EXPECTED.length);
   });
