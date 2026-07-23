@@ -62,6 +62,14 @@ back as tool errors (`isError: true`), not crashes.
 For agent-facing usage — picking a tool, reading `consensus`/`skipped`, error handling, and
 a chained workflow — see the [consumer guide](https://almostjacked.github.io/fitness-tools/mcp/agents/).
 
+## Privacy Policy
+
+The calculators are stateless: inputs are used only to compute the result of
+the call that contains them — no accounts, no storage, no logging of inputs,
+no third-party sharing. The local/desktop versions run entirely on your
+machine and make no network calls. Full policy:
+<https://almostjacked.github.io/fitness-tools/privacy/>
+
 ## Develop
 
 ```bash
