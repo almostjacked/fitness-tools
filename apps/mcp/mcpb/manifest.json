@@ -1,0 +1,18 @@
+{
+  "manifest_version": "0.2",
+  "name": "fitness-tools",
+  "display_name": "Fitness Tools",
+  "version": "0.2.1",
+  "description": "Deterministic fitness calculators: TDEE, adaptive TDEE, body fat, 1RM, macros, and more — published formulas with consensus.",
+  "author": { "name": "AJ Wallace", "email": "ajwallacemusic@gmail.com" },
+  "license": "MIT",
+  "homepage": "https://ajwallacemusic.github.io/fitness-tools/",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"]
+    }
+  }
+}
