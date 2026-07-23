@@ -10,15 +10,16 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "prepack": "tsc -p tsconfig.json",
+    "build": "node scripts/sync-mcpb-version.mjs && tsc -p tsconfig.json",
+    "prepack": "node scripts/sync-mcpb-version.mjs && tsc -p tsconfig.json",
     "prepublishOnly": "node ../../scripts/guard-publish.mjs",
     "start": "node dist/main.js",
     "dev": "tsx watch src/main.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "deploy": "wrangler deploy",
-    "build:mcpb": "node scripts/sync-mcpb-version.mjs && esbuild src/main.ts --bundle --platform=node --format=esm --outfile=mcpb/server/index.js --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\" && mcpb pack mcpb fitness-tools.mcpb"
+    "build:mcpb": "node scripts/sync-mcpb-version.mjs && esbuild src/main.ts --bundle --platform=node --format=esm --outfile=mcpb/server/index.js --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\" && mcpb pack mcpb fitness-tools.mcpb",
+    "sync-version": "node scripts/sync-mcpb-version.mjs"
   },
   "dependencies": {
     "@almostjacked/fitness-tools": "workspace:*",
@@ -59,5 +60,6 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "mcpName": "io.github.almostjacked/fitness-tools"
 }
