@@ -18,7 +18,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "deploy": "wrangler deploy",
-    "build:mcpb": "esbuild src/main.ts --bundle --platform=node --format=esm --outfile=mcpb/server/index.js --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\" && mcpb pack mcpb fitness-tools.mcpb"
+    "build:mcpb": "node scripts/sync-mcpb-version.mjs && esbuild src/main.ts --bundle --platform=node --format=esm --outfile=mcpb/server/index.js --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\" && mcpb pack mcpb fitness-tools.mcpb"
   },
   "dependencies": {
     "@almostjacked/fitness-tools": "workspace:*",
