@@ -18,6 +18,14 @@ function registerTool(server: McpServer, tool: Tool): void {
       description: tool.description,
       inputSchema: inputShape,
       outputSchema: outputShape,
+      // Pure calculators: no state, no side effects, no external calls.
+      annotations: {
+        title: tool.name,
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
     },
     async (args: unknown) => {
       try {

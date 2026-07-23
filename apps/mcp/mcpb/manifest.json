@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "fitness-tools",
   "display_name": "Fitness Tools",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Deterministic fitness calculators: TDEE, adaptive TDEE, body fat, 1RM, macros, and more — published formulas with consensus.",
   "author": {
     "name": "AJ Wallace",
@@ -10,6 +10,9 @@
   },
   "license": "MIT",
   "homepage": "https://almostjacked.github.io/fitness-tools/",
+  "privacy_policies": [
+    "https://almostjacked.github.io/fitness-tools/privacy/"
+  ],
   "server": {
     "type": "node",
     "entry_point": "server/index.js",

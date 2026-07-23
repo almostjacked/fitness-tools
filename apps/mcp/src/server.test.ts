@@ -26,6 +26,16 @@ describe("mcp server contract", () => {
     expect(tdee.description).toContain("TDEE");
     expect((tdee.inputSchema as { type?: string }).type).toBe("object");
     expect((tdee.outputSchema as { type?: string } | undefined)?.type).toBe("object");
+
+    // Directory requirement: every tool declares a title + read-only annotations.
+    for (const t of tools) {
+      const a = t.annotations as
+        | { title?: string; readOnlyHint?: boolean; destructiveHint?: boolean }
+        | undefined;
+      expect(a?.title).toBeTruthy();
+      expect(a?.readOnlyHint).toBe(true);
+      expect(a?.destructiveHint).toBe(false);
+    }
   });
 
   test.each([...REGISTRY.keys()])(
