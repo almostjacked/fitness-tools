@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "homepage": "https://almostjacked.github.io/fitness-tools/",
+  "icon": "icon.png",
   "privacy_policies": [
     "https://almostjacked.github.io/fitness-tools/privacy/"
   ],
