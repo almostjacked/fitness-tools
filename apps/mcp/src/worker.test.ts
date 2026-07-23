@@ -31,4 +31,12 @@ describe("worker fetch handler", () => {
     expect(text).toContain("fitness-tools");
     expect(text).toContain("serverInfo");
   });
+
+  test("GET and DELETE /mcp are rejected with 405", async () => {
+    for (const method of ["GET", "DELETE"]) {
+      const res = await app.request("/mcp", { method });
+      expect(res.status).toBe(405);
+      expect(res.headers.get("allow")).toBe("POST");
+    }
+  });
 });
