@@ -2,8 +2,16 @@
 
 [![CI](https://github.com/almostjacked/fitness-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/almostjacked/fitness-tools/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/%40almostjacked%2Ffitness-tools)](https://www.npmjs.com/package/@almostjacked/fitness-tools)
+[![MCP Registry](https://img.shields.io/badge/MCP_Registry-io.github.almostjacked%2Ffitness--tools-blue)](https://registry.modelcontextprotocol.io/v0/servers?search=almostjacked)
 
 📖 **[Documentation](https://almostjacked.github.io/fitness-tools/)** · [npm](https://www.npmjs.com/package/@almostjacked/fitness-tools)
+
+**Use it with your AI right now:** add the hosted MCP connector
+`https://fitness-tools-mcp.ajwallacemusic.workers.dev/mcp` in claude.ai / ChatGPT settings,
+[install one-click in Cursor](https://cursor.com/install-mcp?name=fitness-tools&config=eyJ0eXBlIjogImh0dHAiLCAidXJsIjogImh0dHBzOi8vZml0bmVzcy10b29scy1tY3AuYWp3YWxsYWNlbXVzaWMud29ya2Vycy5kZXYvbWNwIn0%3D)
+or [VS Code](https://insiders.vscode.dev/redirect/mcp/install?name=fitness-tools&config=%7B%22type%22%3A%20%22http%22%2C%20%22url%22%3A%20%22https%3A//fitness-tools-mcp.ajwallacemusic.workers.dev/mcp%22%7D),
+or grab the [Claude Desktop `.mcpb`](https://github.com/almostjacked/fitness-tools/releases).
 
 Composable, deterministic fitness calculators — BMR/TDEE, body fat, 1RM, macros, activity
 multiplier, powerlifting attempts, and natural muscular potential. Each calculator runs

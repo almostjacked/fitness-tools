@@ -1,5 +1,9 @@
 # @almostjacked/fitness-tools-mcp
 
+[![MCP Registry](https://img.shields.io/badge/MCP_Registry-io.github.almostjacked%2Ffitness--tools-blue)](https://registry.modelcontextprotocol.io/v0/servers?search=almostjacked)
+[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_MCP-black)](https://cursor.com/install-mcp?name=fitness-tools&config=eyJ0eXBlIjogImh0dHAiLCAidXJsIjogImh0dHBzOi8vZml0bmVzcy10b29scy1tY3AuYWp3YWxsYWNlbXVzaWMud29ya2Vycy5kZXYvbWNwIn0%3D)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_MCP-0098FF)](https://insiders.vscode.dev/redirect/mcp/install?name=fitness-tools&config=%7B%22type%22%3A%20%22http%22%2C%20%22url%22%3A%20%22https%3A//fitness-tools-mcp.ajwallacemusic.workers.dev/mcp%22%7D)
+
 An [MCP](https://modelcontextprotocol.io) stdio server that exposes the
 [`@almostjacked/fitness-tools`](../../packages/core) calculators as MCP tools —
 one tool per calculator (TDEE, body fat, 1RM, macros, activity multiplier,
