@@ -5,7 +5,7 @@
 Please **do not open a public issue** for security vulnerabilities.
 
 Instead, report them privately by email to **ajwallacemusic@gmail.com**, or via GitHub's
-[private vulnerability reporting](https://github.com/ajwallacemusic/fitness-tools/security/advisories/new).
+[private vulnerability reporting](https://github.com/almostjacked/fitness-tools/security/advisories/new).
 
 Include as much as you can: a description, affected version(s), reproduction steps, and any
 suggested fix. You'll get an acknowledgement as soon as possible, and a fix or mitigation

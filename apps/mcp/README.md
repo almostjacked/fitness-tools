@@ -11,7 +11,18 @@ Windsurf, Zed, Cline, Continue, and others).
 
 ## Use it
 
-No install required:
+### Hosted (no install)
+
+Add a custom connector in claude.ai / Claude Desktop → Settings → Connectors:
+
+    https://fitness-tools-mcp.ajwallacemusic.workers.dev/mcp
+
+### Claude Desktop one-click
+
+Download [`fitness-tools.mcpb`](https://github.com/almostjacked/fitness-tools/releases)
+and double-click it.
+
+### npx (no install)
 
 ```bash
 npx @almostjacked/fitness-tools-mcp
@@ -38,14 +49,14 @@ claude mcp add fitness-tools -- npx -y @almostjacked/fitness-tools-mcp
 
 ## Tools
 
-> Per-tool inputs, methods, and citations live on the [tool pages](https://ajwallacemusic.github.io/fitness-tools/tools/tdee/) — identical across library, HTTP, and MCP.
+> Per-tool inputs, methods, and citations live on the [tool pages](https://almostjacked.github.io/fitness-tools/tools/tdee/) — identical across library, HTTP, and MCP.
 
 Each tool returns both `structuredContent` (validated against the calculator's
 output schema) and a JSON text fallback. Invalid input and domain errors come
 back as tool errors (`isError: true`), not crashes.
 
 For agent-facing usage — picking a tool, reading `consensus`/`skipped`, error handling, and
-a chained workflow — see the [consumer guide](https://ajwallacemusic.github.io/fitness-tools/mcp/agents/).
+a chained workflow — see the [consumer guide](https://almostjacked.github.io/fitness-tools/mcp/agents/).
 
 ## Develop
 

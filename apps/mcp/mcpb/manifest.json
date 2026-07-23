@@ -6,7 +6,7 @@
   "description": "Deterministic fitness calculators: TDEE, adaptive TDEE, body fat, 1RM, macros, and more — published formulas with consensus.",
   "author": { "name": "AJ Wallace", "email": "ajwallacemusic@gmail.com" },
   "license": "MIT",
-  "homepage": "https://ajwallacemusic.github.io/fitness-tools/",
+  "homepage": "https://almostjacked.github.io/fitness-tools/",
   "server": {
     "type": "node",
     "entry_point": "server/index.js",

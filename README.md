@@ -1,9 +1,9 @@
 # Fitness Tools
 
-[![CI](https://github.com/ajwallacemusic/fitness-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/ajwallacemusic/fitness-tools/actions/workflows/ci.yml)
+[![CI](https://github.com/almostjacked/fitness-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/almostjacked/fitness-tools/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-📖 **[Documentation](https://ajwallacemusic.github.io/fitness-tools/)** · [npm](https://www.npmjs.com/package/@almostjacked/fitness-tools)
+📖 **[Documentation](https://almostjacked.github.io/fitness-tools/)** · [npm](https://www.npmjs.com/package/@almostjacked/fitness-tools)
 
 Composable, deterministic fitness calculators — BMR/TDEE, body fat, 1RM, macros, activity
 multiplier, powerlifting attempts, and natural muscular potential. Each calculator runs
@@ -35,9 +35,9 @@ This repo ships **three separate, independently-usable artifacts**:
 
 ### Documentation
 
-- **New to it?** [Getting started](https://ajwallacemusic.github.io/fitness-tools/start-here/getting-started/)
-- **What each calculator does:** [Tools](https://ajwallacemusic.github.io/fitness-tools/tools/tdee/)
-- **Calling from an agent:** [Consumer guide](https://ajwallacemusic.github.io/fitness-tools/mcp/agents/)
+- **New to it?** [Getting started](https://almostjacked.github.io/fitness-tools/start-here/getting-started/)
+- **What each calculator does:** [Tools](https://almostjacked.github.io/fitness-tools/tools/tdee/)
+- **Calling from an agent:** [Consumer guide](https://almostjacked.github.io/fitness-tools/mcp/agents/)
 - **Working on this repo:** [AGENTS.md](AGENTS.md)
 
 ## Layout

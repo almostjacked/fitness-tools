@@ -38,14 +38,14 @@
   },
   "license": "MIT",
   "author": "AJ Wallace <ajwallacemusic@gmail.com>",
-  "homepage": "https://github.com/ajwallacemusic/fitness-tools/tree/main/packages/core#readme",
+  "homepage": "https://github.com/almostjacked/fitness-tools/tree/main/packages/core#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ajwallacemusic/fitness-tools.git",
+    "url": "git+https://github.com/almostjacked/fitness-tools.git",
     "directory": "packages/core"
   },
   "bugs": {
-    "url": "https://github.com/ajwallacemusic/fitness-tools/issues"
+    "url": "https://github.com/almostjacked/fitness-tools/issues"
   },
   "keywords": [
     "fitness",
