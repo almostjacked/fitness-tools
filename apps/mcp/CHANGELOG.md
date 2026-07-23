@@ -1,5 +1,11 @@
 # @almostjacked/fitness-tools-mcp
 
+## 0.3.1
+
+### Patch Changes
+
+- 0a6bb80: Add official MCP registry metadata (`mcpName`, `server.json`) and report the real package version in MCP `serverInfo` (was hardcoded 0.1.0).
+
 ## 0.3.0
 
 ### Minor Changes
